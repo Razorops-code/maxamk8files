@@ -49,20 +49,20 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
           env:
           - name: MYSQL_DB_HOSTNAME
-          valueFrom:
-            configMapKeyRef:
-              name: maxam-configmap
-              key: hostname
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-configmap
+                key: hostname
           - name: MYSQL_ROOT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              name: maxam-configmap
-              key: username
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-configmap
+                key: username
           - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: maxam-configmap
-              key: password
+            valueFrom:
+              configMapKeyRef:
+                name: {{ .Release.Name }}-configmap
+                key: password
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
