@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maxam-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: maxam-app
+  template:
+    metadata:
+      labels:
+        app: maxam-app
+    spec:
+      containers:
+      - name: maxam-app
+        image: razoropsrepocode/maxam:v1.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+        resources:
+         limits:
+           cpu: 500m
+         requests:
+           cpu: 200m
+      imagePullSecrets:
+      - name: regcred
+        env:
+        - name: MYSQL_DB_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: maxam-configmap
+              key: hostname
+        - name: MYSQL_ROOT_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: maxam-configmap
+              key: username
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: maxam-configmap
+              key: password 
