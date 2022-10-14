@@ -3,4 +3,6 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name }}-configmap
 data:
-{{ .Files.Get "config.yaml" | indent 4}}
+  hostname: 139.59.47.89
+  username: raZorOpsK8s_UsEr
+  password: raZorOpsK8s_UsErpAssWd
